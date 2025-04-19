@@ -13,6 +13,12 @@ int main()
     {
         input = readline(COLOR_GREEN "minishell> " COLOR_RESET);
         mini_parser(input);
-        exeuction_cmds(args);
+        // exeuction_cmds(args);
+        int i = 0;
+        while (args[i] != NULL)
+        {
+            printf("%s\n", args[i]);
+            i++;
+        }
     }
 }
