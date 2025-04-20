@@ -6,7 +6,7 @@
 /*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:31:11 by ayadouay          #+#    #+#             */
-/*   Updated: 2024/11/18 19:11:17 by ayadouay         ###   ########.fr       */
+/*   Updated: 2025/04/20 08:11:00 by ayadouay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_itoa(int n);
 int					ft_atoi(const char *nptr);
+int	ft_strcmp(const char *str1, const char *str2);
 size_t				ft_strlen(const char *str);
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
 void				*ft_memset(void *s, int c, size_t n);
