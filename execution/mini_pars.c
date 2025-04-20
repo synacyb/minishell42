@@ -1,44 +1,44 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../minishell.h"
 
-#define MAX_ARGS 10
-
-typedef struct s_command {
-    char *cmd;
-    char *args[MAX_ARGS];
-} t_command;
-
-t_command parse_input(const char *input) {
-    t_command command = {0};
-    char *token;
-    char *input_copy = strdup(input);
-    int i = 0;
-
-    token = strtok(input_copy, " ");
-    while (token != NULL && i < MAX_ARGS - 1) {
-        if (i == 0)
-            command.cmd = strdup(token);
-        command.args[i++] = strdup(token);
-        token = strtok(NULL, " ");
+// Count how many words (for malloc)
+int count_words(char *line) {
+    int count = 0;
+    char *tmp = strtok(line, " ");
+    while (tmp) {
+        count++;
+        tmp = strtok(NULL, " ");
     }
-    command.args[i] = NULL;
-    free(input_copy);
-    return command;
+    return count;
 }
 
-// int main() {
-//     const char *input = "ls -la /home";
-//     t_command cmd = parse_input(input);
+t_node *parse_input(char *input)
+{
+    t_node *node = malloc(sizeof(t_node));
+    if (!node) return NULL;
 
-//     printf("Command: %s\n", cmd.cmd);
-//     for (int i = 0; cmd.args[i]; i++)
-//         printf("Arg[%d]: %s\n", i, cmd.args[i]);
+    node->infile = NULL;
+    node->outfile = NULL;
+    node->append = 0;
+    node->pipe_in = 0;
+    node->pipe_out = 0;
+    node->next = NULL;
 
-//     // Free allocated memory
-//     for (int i = 0; cmd.args[i]; i++)
-//         free(cmd.args[i]);
-//     free(cmd.cmd);
+    // duplicate because strtok modifies it
+    char *dup = strdup(input);
+    if (!dup) return NULL;
 
-//     return 0;
-// }
+    int count = count_words(strdup(input)); // second strdup since count_words uses strtok
+    node->args = malloc(sizeof(char *) * (count + 1));
+
+    char *token = strtok(dup, " ");
+    int i = 0;
+    while (token) {
+        node->args[i++] = strdup(token);
+        token = strtok(NULL, " ");
+    }
+    node->args[i] = NULL;
+    node->cmd = node->args[0]; // first token is the command
+
+    free(dup);
+    return node;
+}

@@ -1,15 +1,15 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void    ft_echo(t_cmd   *args)
+void    ft_echo(t_node   *cmd)
 {
-    if (!args || !args->args[0])
+    if (!cmd || !cmd->args[0])
     {
         // ft_free_args();
         return ;
     }
-    if(ft_strcmp(args->args[1], "-n") == 0)
-        ft_putstr_fd(args->args[2], 1);
+    if(ft_strcmp(cmd->args[1], "-n") == 0)
+        ft_putstr_fd(cmd->args[2], 1);
     
     else
-        ft_putendl_fd(args->args[1], 1);
+        ft_putendl_fd(cmd->args[1], 1);
 }
