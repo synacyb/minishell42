@@ -1,9 +1,10 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 LIBFTDIR = ./libft_v1
-M_SRC = execution/executor.c execution/mini_pars.c execution/builtins/echo.c execution/builtins/pwd.c execution/help_func/check_cmd.c
+M_SRC = execution/executor.c execution/mini_pars.c execution/builtins/echo.c execution/builtins/pwd.c execution/help_func/check_cmd.c execution/help_func/set_data.c \
+		execution/help_func/check_builtins_cmd.c execution/help_func/get_env.c execution/builtins/env.c
 M_OBJ = $(M_SRC:.c=.o)
-NAME = minisheel
+NAME = minishell
 DELETE = rm -f
 
 all: $(NAME) 

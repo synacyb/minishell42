@@ -29,10 +29,14 @@
     int pipe_out;
     struct s_node *next;
 } t_node;
- 
+
 t_node *parse_input(char *input);
-void    check_cmd(t_node *args);
+void    set_data(t_node *data);
+void    check_cmd(t_node *args, char **env);
 void    ft_echo(t_node   *cmd);
 void    ft_pwd(t_node   *cmd);
+int    check_builtins_cmd(t_node *args, char **env);
+char    **get_env(char **enva);
+void    ft_env(char **env);
 
 #endif

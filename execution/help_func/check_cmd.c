@@ -1,9 +1,9 @@
 #include "../../minishell.h"
 
-void    check_cmd(t_node *args)
+void    check_cmd(t_node *args, char **env)
 {
-    if (ft_strcmp(args->cmd, "echo") == 0)
-        ft_echo(args);
-    if(ft_strcmp(args->cmd, "pwd") == 0)
-        ft_pwd(args);
+    if(!args)
+        return ;
+    if(check_builtins_cmd(args, env) == 0)
+        printf("extrnal_cmd !!\n");
 }
