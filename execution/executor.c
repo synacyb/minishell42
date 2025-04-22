@@ -11,16 +11,17 @@ int main(int ac, char **av, char **envp)
 {
     char *input;
     t_node *cmds = NULL;
-    char **env;
-    
+    char **env = NULL;
+
+    env = get_env(envp);
     set_data(cmds);
     ((void)ac , (void)av);
-    env = get_env(envp);
     while (1)
     {
         input = readline(COLOR_GREEN "minishell> " COLOR_RESET);
         if (!input)
             break;
+        add_history(input);
         cmds = parse_input(input);
         exeuction_cmds(cmds, env);
     }

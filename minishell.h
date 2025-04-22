@@ -53,5 +53,6 @@ void    ft_pwd(t_node   *cmd);
 int    check_builtins_cmd(t_node *args, char **env);
 char    **get_env(char **enva);
 void    ft_env(char **env);
+void    ft_cd(t_node   *cmd);
 
 #endif

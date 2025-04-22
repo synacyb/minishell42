@@ -16,5 +16,4 @@ void    ft_pwd(t_node   *cmd)
         return ;
     }
     ft_putendl_fd(wcd, 1);
-
 }

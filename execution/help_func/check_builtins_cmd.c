@@ -9,6 +9,8 @@ int    check_builtins_cmd(t_node *args, char **env)
         (ft_pwd(args), check = 1);
     if(ft_strcmp(args->cmd, "env") == 0)
         (ft_env(env), check = 1);
+    if(ft_strcmp(args->cmd, "cd") == 0)
+        (ft_cd(args), check = 1);
     
     return check;
 }

@@ -1,43 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/22 09:22:24 by ayadouay          #+#    #+#             */
+/*   Updated: 2025/04/22 10:29:25 by ayadouay         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-void    cheak_new_line(char *arg, int *new_line)
+void	cheak_new_line(char **arg, int *new_line, int *i)
 {
-    int i = 0;
-    if(!arg)
-        return ;
-    while (arg[i])
-    {
-        if(arg[i] == '-')
-            i++;
-        if(arg[i] == 'n')
-            *new_line = 0;
-        else
-        {
-            *new_line = 1;
-            break;
-        }
-        i++;
-    }
+	int	j;
+
+	while (arg[*i])
+	{
+		j = 0;
+		if (arg[(*i)][j] == '-')
+			j++;
+		else
+			break ;
+		while (arg[(*i)][j])
+		{
+			if (arg[(*i)][j] == 'n')
+				*new_line = 0;
+			else
+			{
+				*new_line = 1;
+				break ;
+			}
+			j++;
+		}
+		if (*new_line == 1)
+			break ;
+		(*i)++;
+	}
 }
-void    ft_echo(t_node   *cmd)
+
+void	ft_echo(t_node	*cmd)
 {
-    int i = 1;
-    int new_line = 1;
-    if (!cmd || !cmd->args[0])
-    {
-        // ft_free_args();
-        return ;
-    }
-    cheak_new_line(cmd->args[1], &new_line);
-    if(new_line == 0)
-        i++;
-    while (cmd->args[i])
-    {
-        ft_putstr_fd(cmd->args[i], 1);
-        if (cmd->args[i + 1])
-            ft_putstr_fd(" ", 1);
-        i++;
-    }
-    if(new_line == 1)
-        printf("\n");
+	int	i;
+	int	new_line;
+
+	i = 1;
+	new_line = 1;
+	if (!cmd || !cmd->args[0])
+	{
+		// ft_free_args();
+		return ;
+	}
+	cheak_new_line(cmd->args, &new_line, &i);
+	while (cmd->args[i])
+	{
+		ft_putstr_fd(cmd->args[i], 1);
+		if (cmd->args[i + 1])
+			ft_putstr_fd(" ", 1);
+		i++;
+	}
+	if (new_line == 1)
+		printf("\n");
 }
