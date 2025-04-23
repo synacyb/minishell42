@@ -32,7 +32,7 @@ int main(int ac, char **av, char **envp)
 
         if (!check_syntax(tokens))
         {
-            printf("❌ Syntax error!\n");
+            printf("Syntax error!\n");
             free_tokens(tokens);
             free(input);
             continue;
