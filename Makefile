@@ -5,6 +5,7 @@ CFLAGS = -g -Wall -Wextra -Werror -I. -I$(LIBFTDIR)
 # Libft
 LIBFTDIR = ./libft_v1
 
+
 # Sources
 M_SRC = \
 	main.c \

@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -54,3 +55,6 @@ int main(int ac, char **av, char **envp)
 
     return 0;
 }
+=======
+// hada dyalk nta !!! bach mli ghatkamal parcing tsift liya linkdlest l execution.c !
+>>>>>>> 417bbe61606d6354cf0536fafac2513a0ca9d115
