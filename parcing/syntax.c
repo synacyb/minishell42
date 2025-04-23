@@ -46,4 +46,3 @@ bool check_syntax(t_token *tokens)
 
     return true;
 }
-

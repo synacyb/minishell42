@@ -5,11 +5,13 @@
  #include "libft_v1/libft.h"
  #include <readline/readline.h>
  #include <readline/history.h>
+ #include <stdbool.h>
+
  
  // ----- Colors -----
- #define COLOR_RESET   "\033[0m"
  #define COLOR_RED     "\033[0;31m"
- #define COLOR_GREEN   "\033[0;32m"
+#define COLOR_GREEN "\001\033[0;32m\002"
+#define COLOR_RESET "\001\033[0m\002"
  #define COLOR_YELLOW  "\033[0;33m"
  #define COLOR_BLUE    "\033[0;34m"
  #define COLOR_MAGENTA "\033[0;35m"
@@ -55,4 +57,8 @@ char    **get_env(char **enva);
 void    ft_env(char **env);
 void    ft_cd(t_node   *cmd);
 t_token *tokenizer(const char *input);
+void print_tokens(t_token *t);
+bool check_syntax(t_token *tokens);
+void    expand_tokens(t_token *tokens, char **env, int last_status);
+void free_tokens(t_token *tokens);
 #endif

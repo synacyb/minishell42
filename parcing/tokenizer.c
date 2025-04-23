@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../minishell.h"
 
 //------------------------- UTILITY FUNCTIONS -----------------------------//
 
@@ -132,53 +132,7 @@ void print_tokens(t_token *t)
     while (t)
     {
         printf("[%d] '%s'\\n", t->type, t->value);
+        printf("\n");
         t = t->next;
     }
-}
-
-#include <readline/readline.h>
-#include <readline/history.h>
-
-#define COLOR_GREEN "\001\033[0;32m\002"
-#define COLOR_RESET "\001\033[0m\002"
-
-int main(void)
-{
-    char *input;
-    t_token *tokens;
-
-    while (1)
-    {
-        input = readline(COLOR_GREEN "minishell> " COLOR_RESET);
-        if (!input)
-            break;
-
-        if (*input) // only add non-empty lines to history
-            add_history(input);
-
-        tokens = tokenizer(input);
-
-        if (!tokens)
-        {
-            printf("No tokens found.\n");
-            free(input);
-            continue;
-        }
-
-        print_tokens(tokens);
-
-        // free token list
-        t_token *tmp;
-        while (tokens)
-        {
-            tmp = tokens;
-            tokens = tokens->next;
-            free(tmp->value);
-            free(tmp);
-        }
-
-        free(input);
-    }
-
-    return 0;
 }

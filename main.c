@@ -1,29 +1,56 @@
-#include "../minishell.h"
+#include "minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
-void    exeuction_cmds(t_node *args, char **env)
-{
-    if(args->args[0] == NULL) // if the user send a empty string !
-        return ;
-    check_cmd(args, env);
-}
+int g_exit_status = 0;
 
-int main(int ac, char **av, char **envp) 
+int main(int ac, char **av, char **envp)
 {
     char *input;
-    t_node *cmds = NULL;
-    char **env = NULL;
+    t_token *tokens;
+    char **env = envp; // can duplicate if needed
 
-    env = get_env(envp);
-    set_data(cmds);
-    ((void)ac , (void)av);
+    (void)ac;
+    (void)av;
+
     while (1)
     {
         input = readline(COLOR_GREEN "minishell> " COLOR_RESET);
         if (!input)
             break;
-        add_history(input);
-        cmds = parse_input(input);
-        exeuction_cmds(cmds, env);
+
+        if (*input)
+            add_history(input);
+
+        tokens = tokenizer(input);
+
+        if (!tokens)
+        {
+            free(input);
+            continue;
+        }
+
+        if (!check_syntax(tokens))
+        {
+            printf("❌ Syntax error!\n");
+            free_tokens(tokens);
+            free(input);
+            continue;
+        }
+
+        // Expand environment vars and $?
+        expand_tokens(tokens, env, g_exit_status);
+
+        // Debug: print final tokens
+        printf("🔍 Final tokens:\n");
+        print_tokens(tokens);
+
+        // Simulate success (or set manually if you test $?)
+        g_exit_status = 0;
+
+        free_tokens(tokens);
+        free(input);
     }
+
     return 0;
 }
