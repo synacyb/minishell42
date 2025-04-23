@@ -54,5 +54,5 @@ int    check_builtins_cmd(t_node *args, char **env);
 char    **get_env(char **enva);
 void    ft_env(char **env);
 void    ft_cd(t_node   *cmd);
-
+t_token *tokenizer(const char *input);
 #endif
