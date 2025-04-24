@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-void    check_cmd(t_node *args, char **env)
+void    check_cmd(t_node *args, t_list *env)
 {
     if(!args)
         return ;

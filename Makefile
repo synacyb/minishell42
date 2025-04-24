@@ -15,6 +15,7 @@ M_SRC = \
 	parcing/syntax.c \
 	execution/mini_pars.c \
 	execution/builtins/echo.c \
+	execution/execution.c \
 	execution/builtins/pwd.c \
 	execution/help_func/check_cmd.c \
 	execution/help_func/set_data.c \
@@ -38,6 +39,7 @@ all: $(NAME)
 # Linking
 $(NAME): $(M_OBJ)
 	$(MAKE) -C $(LIBFTDIR)
+	$(MAKE) bonus -C $(LIBFTDIR)
 	$(CC) $(CFLAGS) $(M_OBJ) $(LIBFTDIR)/libft.a -lreadline -o $(NAME)
 
 # Compile each .c to .o

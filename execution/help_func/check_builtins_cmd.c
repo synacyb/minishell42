@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-int    check_builtins_cmd(t_node *args, char **env)
+int    check_builtins_cmd(t_node *args, t_list *env)
 {
     int check = 0;
     if (ft_strcmp(args->cmd, "echo") == 0)

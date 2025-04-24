@@ -1,25 +1,22 @@
 #include "../../minishell.h"
-int count_line(char **env)
+
+t_list  *creat_list_env(char **env)
 {
-    int i = 0;
+    int i;
+    i = 0;
 
-    while(env[i] != NULL)
-        i++;
-    return i;
-}
-char    **get_env(char **enva)
-{
-    char **env;
-    int i = 0;
-    int len = count_line(enva);
-
-    env = malloc((len + 1) * sizeof(char *));
-
-    while (enva[i])
+    t_list *env_list =  NULL;
+    t_list *next_nod = NULL;
+    while (env[i])
     {
-        env[i] = ft_strdup(enva[i]);
+        if(!env_list)
+            env_list = ft_lstnew(env[i]);
+        else
+        {
+            next_nod = ft_lstnew(env[i]);
+            ft_lstadd_back(&env_list, next_nod);
+        }
         i++;
     }
-    env[i] = NULL;
-    return (env);
+    return env_list;
 }

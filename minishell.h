@@ -49,13 +49,14 @@ typedef struct s_token {
 
 t_node *parse_input(char *input);
 void    set_data(t_node *data);
-void    check_cmd(t_node *args, char **env);
+void    check_cmd(t_node *args, t_list *env);
 void    ft_echo(t_node   *cmd);
 void    ft_pwd(t_node   *cmd);
-int    check_builtins_cmd(t_node *args, char **env);
-char    **get_env(char **enva);
-void    ft_env(char **env);
+int    check_builtins_cmd(t_node *args, t_list *env);
+t_list  *creat_list_env(char **env);
+void    ft_env(t_list *env);
 void    ft_cd(t_node   *cmd);
+void    exeuction_cmds(t_node *args, t_list *env);
 t_token *tokenizer(const char *input);
 void print_tokens(t_token *t);
 bool check_syntax(t_token *tokens);
