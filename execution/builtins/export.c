@@ -49,6 +49,13 @@ void sort_array(char **arr)
         }
     }
 }
+void    free_cpy_list(char **arr)
+{
+    int i = 0;
+    while (arr[i])
+        free(arr[i++]);
+    free(arr);
+}
 
 void    print_env(t_list *env)
 {
@@ -74,6 +81,31 @@ void    print_env(t_list *env)
             printf("declare -x %s\n", cpy_list[i]);
         i++;
     }
+    free_cpy_list(cpy_list);
+}
+
+void update_or_add_to_env(t_list *env, char *arg)
+{
+    t_list *cpy = env;
+    char *key_arg;
+    char value_arg;
+
+    char *key_list;
+    char *equal;
+
+    get_value_and_key(&key_arg, &value_arg, arg);
+
+    while (cpy)
+    {
+        equal = ft_strchr((char *)cpy->content, '=');
+        key_list 
+        if (ft_strcmp(key, ))
+        {
+            /* code */
+        }
+        
+    }
+    
 }
 void    ft_export(t_node *arg, t_list *env)
 {
@@ -85,12 +117,11 @@ void    ft_export(t_node *arg, t_list *env)
         print_env(env);
         return ;
     }
-    // else
-    // {
-    //     while (arg->args[i])
-    //     {
-    //         //function that update the key or add new key with her valu! 
-    //     }
-        
-    // }
+    else
+    {
+        while (arg->args[i])
+        {
+
+        }
+    }
 }
