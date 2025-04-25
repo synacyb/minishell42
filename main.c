@@ -75,5 +75,6 @@ int main(int ac, char **av, char **envp)
         cmds = parse_input(input);
         exeuction_cmds(cmds, env);
     }
+    
     return 0;
 }

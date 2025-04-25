@@ -11,6 +11,7 @@ int    check_builtins_cmd(t_node *args, t_list *env)
         (ft_env(env), check = 1);
     if(ft_strcmp(args->cmd, "cd") == 0)
         (ft_cd(args), check = 1);
-    
+    if(ft_strcmp(args->cmd, "export") == 0)
+        (ft_export(args, env), check = 1);
     return check;
 }

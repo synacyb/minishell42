@@ -22,7 +22,8 @@ M_SRC = \
 	execution/help_func/check_builtins_cmd.c \
 	execution/help_func/get_env.c \
 	execution/builtins/env.c \
-	execution/builtins/cd.c
+	execution/builtins/cd.c \
+	execution/builtins/export.c \
 
 # Objects
 M_OBJ = $(M_SRC:.c=.o)

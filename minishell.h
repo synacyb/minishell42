@@ -47,11 +47,19 @@ typedef struct s_token {
     struct s_token *next;
 } t_token;
 
+
+struct e_minishell
+{
+    t_node *node;
+    t_token *type;
+};
+
 t_node *parse_input(char *input);
 void    set_data(t_node *data);
 void    check_cmd(t_node *args, t_list *env);
 void    ft_echo(t_node   *cmd);
 void    ft_pwd(t_node   *cmd);
+void    ft_export(t_node *arg, t_list *env);
 int    check_builtins_cmd(t_node *args, t_list *env);
 t_list  *creat_list_env(char **env);
 void    ft_env(t_list *env);
