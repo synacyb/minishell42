@@ -3,6 +3,12 @@
 void    get_value_and_key(char **key, char **value, char  *arg)
 {
     char *equal = ft_strchr(arg, '=');
+    if (!equal)
+    {
+        *key = ft_strdup(arg);
+        *value = NULL;
+        return;
+    }
     int len1 = ft_strlen(arg);
     int len2 = ft_strlen(equal);
     int target_len = len1 - len2;
@@ -78,7 +84,7 @@ void    print_env(t_list *env)
             free(value);
         }
         else
-            printf("declare -x %s\n", cpy_list[i]);
+            printf("declare -x %s=''\n", cpy_list[i]);
         i++;
     }
     free_cpy_list(cpy_list);
@@ -88,29 +94,35 @@ void update_or_add_to_env(t_list *env, char *arg)
 {
     t_list *cpy = env;
     char *key_arg;
-    char value_arg;
-
+    char *value_arg;
     char *key_list;
-    char *equal;
+    char *value_list;
 
     get_value_and_key(&key_arg, &value_arg, arg);
-
-    while (cpy)
+    while (cpy != NULL)
     {
-        equal = ft_strchr((char *)cpy->content, '=');
-        key_list 
-        if (ft_strcmp(key, ))
+        get_value_and_key(&key_list, &value_list, cpy->content);
+        if (ft_strcmp(key_arg, key_list) == 0)
         {
-            /* code */
+            free(cpy->content);
+            cpy->content = (void *)ft_strdup(arg);
+            free(key_list);
+            free(value_list);
+            free(key_arg);
+            free(value_arg);
+            return;
         }
-        
+        free(key_list);
+        free(value_list);
+        cpy = cpy->next;
     }
-    
+    t_list *cpy_node = ft_lstnew((void *)ft_strdup(arg));
+    ft_lstadd_back(&env, cpy_node);
+    free(key_arg);
+    free(value_arg);
 }
 void    ft_export(t_node *arg, t_list *env)
 {
-    // char    *key;
-    // char    *value;
     int i = 1;
     if(arg->args[i] == NULL)
     {
@@ -121,7 +133,8 @@ void    ft_export(t_node *arg, t_list *env)
     {
         while (arg->args[i])
         {
-
+            update_or_add_to_env(env, arg->args[i]);
+            i++;
         }
     }
 }

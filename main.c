@@ -57,6 +57,23 @@
 // }
 
 //had dyali  commintyh okml khdmtak !!!
+
+void    ft_free(t_node *cmds, t_list *env)
+{
+    free(cmds->cmd);
+    int i = 0;
+    while (cmds->args[i])
+        free(cmds->args[i++]);
+    free(cmds->args);
+
+    while (env)
+    {
+        free(env->content);
+        env = env->next;
+    }
+    free(env);
+    
+}
 int main(int ac, char **av, char **envp) 
 {
     char *input;
@@ -74,6 +91,8 @@ int main(int ac, char **av, char **envp)
         add_history(input);
         cmds = parse_input(input);
         exeuction_cmds(cmds, env);
+        ft_free(cmds, env);
+        free(input);
     }
     
     return 0;
