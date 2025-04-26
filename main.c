@@ -91,9 +91,8 @@ int main(int ac, char **av, char **envp)
         add_history(input);
         cmds = parse_input(input);
         exeuction_cmds(cmds, env);
-        ft_free(cmds, env);
+        // ft_free(cmds, env);
         free(input);
     }
-    
     return 0;
 }

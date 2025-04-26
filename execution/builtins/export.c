@@ -84,7 +84,7 @@ void    print_env(t_list *env)
             free(value);
         }
         else
-            printf("declare -x %s=''\n", cpy_list[i]);
+            printf("declare -x %s\n", cpy_list[i]);
         i++;
     }
     free_cpy_list(cpy_list);
@@ -112,8 +112,6 @@ void update_or_add_to_env(t_list *env, char *arg)
             free(value_arg);
             return;
         }
-        free(key_list);
-        free(value_list);
         cpy = cpy->next;
     }
     t_list *cpy_node = ft_lstnew((void *)ft_strdup(arg));
