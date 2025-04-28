@@ -67,6 +67,7 @@ void sort_array(char **arr);
 t_list  *creat_list_env(char **env);
 void    ft_env(t_list *env);
 void    ft_cd(t_node   *cmd);
+int check_key(char *key);
 void    exeuction_cmds(t_node *args, t_list *env);
 t_token *tokenizer(const char *input);
 void print_tokens(t_token *t);

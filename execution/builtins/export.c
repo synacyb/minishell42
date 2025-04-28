@@ -83,7 +83,8 @@ void	ft_export(t_node *arg, t_list *env)
 	{
 		while (arg->args[i])
 		{
-			update_or_add_to_env(env, arg->args[i]);
+			if(check_key(arg->args[i]))
+				update_or_add_to_env(env, arg->args[i]);
 			i++;
 		}
 	}

@@ -23,6 +23,7 @@ M_SRC = \
 	execution/help_func/get_value_and_key.c \
 	execution/help_func/set_data.c \
 	execution/help_func/check_builtins_cmd.c \
+	execution/help_func/valid_key.c \
 	execution/help_func/get_env.c \
 	execution/builtins/env.c \
 	execution/builtins/cd.c \
