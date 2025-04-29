@@ -10,6 +10,11 @@ void	free_cpy_list(char **arr)
 	free(arr);
 }
 
+void	free_extra_alocation(char *key, char *value)
+{
+	free(key);
+	free(value);
+}
 void	print_env(t_list *env)
 {
 	char	**cpy_list;
@@ -40,40 +45,31 @@ void	print_env(t_list *env)
 
 void	update_or_add_to_env(t_list *env, char *arg, int append)
 {
-	t_list	*cpy;
-	char	*key_arg;
-	char	*value_arg;
-	char	*key_list;
-	char	*value_list;
-	t_list	*cpy_node;
-
-	cpy = env;
+	exporta data;
+	data.cpy = env;
 	if(append == 1)
 	{
 		append_values(env, arg);
 		return ;
 	}
-	
-	get_value_and_key(&key_arg, &value_arg, arg);
-	while (cpy != NULL)
+	get_value_and_key(&data.key_arg, &data.value_arg, arg);
+	while (data.cpy != NULL)
 	{
-		get_value_and_key(&key_list, &value_list, cpy->content);
-		if (ft_strcmp(key_arg, key_list) == 0)
+		get_value_and_key(&data.key_list, &data.value_list, data.cpy->content);
+		if (ft_strcmp(data.key_arg, data.key_list) == 0)
 		{
-			free(cpy->content);
-			cpy->content = (void *)ft_strdup(arg);
-			free(key_list);
-			free(value_list);
-			free(key_arg);
-			free(value_arg);
+			free(data.cpy->content);
+			data.cpy->content = (void *)ft_strdup(arg);
+			free_extra_alocation(data.key_list, data.value_list);
+			free_extra_alocation(data.key_arg, data.value_arg);
 			return ;
 		}
-		cpy = cpy->next;
+		free_extra_alocation(data.key_list, data.value_list);
+		data.cpy = data.cpy->next;
 	}
-	cpy_node = ft_lstnew((void *)ft_strdup(arg));
-	ft_lstadd_back(&env, cpy_node);
-	free(key_arg);
-	free(value_arg);
+	data.cpy_node = ft_lstnew((void *)ft_strdup(arg));
+	ft_lstadd_back(&env, data.cpy_node);
+	free_extra_alocation(data.key_arg, data.value_arg);
 }
 void	ft_export(t_node *arg, t_list *env)
 {

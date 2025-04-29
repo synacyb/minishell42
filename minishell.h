@@ -55,6 +55,7 @@ typedef struct export_data
 	char	*key_list;
 	char	*value_list;
 	t_list	*cpy_node;
+    char    *equal;
 }exporta;
 
 struct e_minishell

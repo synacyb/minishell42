@@ -1,36 +1,47 @@
 #include "../../minishell.h"
 
+void    free_extra(char *key, char *value)
+{
+    free(key);
+    free(value);
+}
+
+void    add_new_var(t_list *env, char *arg)
+{
+    exporta data;
+    char *joined;
+
+    data.key_arg = get_clean_key(arg);
+    data.value_arg = ft_strdup(ft_strchr(arg, '='));
+    joined = ft_strjoin(data.key_arg, data.value_arg);
+    data.cpy_node = ft_lstnew((void *)joined);
+    ft_lstadd_back(&env, data.cpy_node);
+    free_extra(data.key_arg, data.value_arg);
+}
+
 void    append_values(t_list *env, char *arg)
 {
-    char *key = get_clean_key(arg);
-    char *value = ft_strdup(ft_strchr(arg, '=') + 1);
-    char	*key_list;
-	char	*value_list;
     char *joined;
-    t_list *cpy_node;
-    t_list *cpy_list = env;
-    while (cpy_list)
+    exporta data;
+
+    data.cpy = env;
+    data.key_arg = get_clean_key(arg);
+    data.value_arg = ft_strdup(ft_strchr(arg, '=') + 1);
+    while (data.cpy)
     {
-        get_value_and_key(&key_list, &value_list, cpy_list->content);
-        if (ft_strcmp(key, key_list) == 0)
+        get_value_and_key(&data.key_list, &data.value_list, data.cpy->content);
+        if (ft_strcmp(data.key_arg, data.key_list) == 0)
         {
-            joined = ft_strjoin(cpy_list->content, value);
-            free(cpy_list->content);
-            cpy_list->content = joined;
-            free(key);
-            free(key_list);
-            free(value);
-            free(value_list);
+            joined = ft_strjoin(data.cpy->content, data.value_arg);
+            free(data.cpy->content);
+            data.cpy->content = joined;
+            free_extra(data.key_arg, data.value_arg);
+            free_extra(data.key_list, data.value_list);
             return ;
         }
-        free(key_list);
-        free(value_list);
-        cpy_list = cpy_list->next;
+        free_extra(data.key_list, data.value_list);
+        data.cpy = data.cpy->next;
     }
-    char *tmp = key;
-    key = ft_strjoin(key, "=");
-    free(tmp);
-    joined = ft_strjoin(key, value);
-    cpy_node = ft_lstnew((void *)joined);
-    ft_lstadd_back(&env, cpy_node);
+    free_extra(data.key_arg, data.value_arg);
+    add_new_var(env, arg);
 }
