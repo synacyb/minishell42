@@ -55,6 +55,7 @@ typedef struct export_data
 	char	*key_list;
 	char	*value_list;
 	t_list	*cpy_node;
+    char    **cpy_list;
     char    *equal;
 }exporta;
 
@@ -79,6 +80,7 @@ void    ft_env(t_list *env);
 void    ft_cd(t_node   *cmd);
 int check_key(char *key);
 int    check_append(char *arg);
+void	print_env(t_list *env);
 char *get_clean_key(char *arg);
 void    append_values(t_list *env, char *arg);
 void    exeuction_cmds(t_node *args, t_list *env);
