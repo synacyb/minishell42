@@ -14,5 +14,6 @@ void    get_value_and_key(char **key, char **value, char  *arg)
     int target_len = len1 - len2;
 
     *key = ft_substr(arg, 0, target_len);
-    *value = ft_strdup(equal + 1);
+    if(value != NULL)
+        *value = ft_strdup(equal + 1);
 }

@@ -38,7 +38,7 @@ void	print_env(t_list *env)
 	free_cpy_list(cpy_list);
 }
 
-void	update_or_add_to_env(t_list *env, char *arg)
+void	update_or_add_to_env(t_list *env, char *arg, int append)
 {
 	t_list	*cpy;
 	char	*key_arg;
@@ -48,6 +48,12 @@ void	update_or_add_to_env(t_list *env, char *arg)
 	t_list	*cpy_node;
 
 	cpy = env;
+	if(append == 1)
+	{
+		append_values(env, arg);
+		return ;
+	}
+	
 	get_value_and_key(&key_arg, &value_arg, arg);
 	while (cpy != NULL)
 	{
@@ -72,7 +78,7 @@ void	update_or_add_to_env(t_list *env, char *arg)
 void	ft_export(t_node *arg, t_list *env)
 {
 	int	i;
-
+	int append;
 	i = 1;
 	if (arg->args[i] == NULL)
 	{
@@ -83,8 +89,11 @@ void	ft_export(t_node *arg, t_list *env)
 	{
 		while (arg->args[i])
 		{
+			append = 0;
+			if(check_append(arg->args[i]) == 1)
+				append = 1;
 			if(check_key(arg->args[i]))
-				update_or_add_to_env(env, arg->args[i]);
+				update_or_add_to_env(env, arg->args[i], append);
 			i++;
 		}
 	}

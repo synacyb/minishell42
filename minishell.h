@@ -47,6 +47,15 @@ typedef struct s_token {
     struct s_token *next;
 } t_token;
 
+typedef struct export_data
+{
+    t_list	*cpy;
+	char	*key_arg;
+	char	*value_arg;
+	char	*key_list;
+	char	*value_list;
+	t_list	*cpy_node;
+}exporta;
 
 struct e_minishell
 {
@@ -68,6 +77,9 @@ t_list  *creat_list_env(char **env);
 void    ft_env(t_list *env);
 void    ft_cd(t_node   *cmd);
 int check_key(char *key);
+int    check_append(char *arg);
+char *get_clean_key(char *arg);
+void    append_values(t_list *env, char *arg);
 void    exeuction_cmds(t_node *args, t_list *env);
 t_token *tokenizer(const char *input);
 void print_tokens(t_token *t);
