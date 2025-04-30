@@ -6,7 +6,7 @@
 /*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:42:53 by ayadouay          #+#    #+#             */
-/*   Updated: 2025/04/30 09:09:38 by ayadouay         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:33:17 by ayadouay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,19 @@ void	new_var(t_list *env, char *arg)
 	data.cpy_node = ft_lstnew((void *)ft_strdup(arg));
 	ft_lstadd_back(&env, data.cpy_node);
 }
+
 void	check_extra_case(exporta *data, char *arg)
 {
-	int i = 0;
-    while (arg[i])
-    {
-        if (arg[i] == '=')
-            break;
-        i++;
-    }
-	if(arg[i] == '=')
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] == '=')
+			break ;
+		i++;
+	}
+	if (arg[i] == '=')
 	{
 		free(data->cpy->content);
 		data->cpy->content = (void *)ft_strdup(arg);
@@ -52,16 +55,12 @@ void	check_extra_case(exporta *data, char *arg)
 		free_extra_alocation(data->key_arg, data->value_arg);
 	}
 }
-void	update_or_add_to_env(t_list *env, char *arg, int append)
+
+void	update_or_add_to_env(t_list *env, char *arg)
 {
 	exporta	data;
 
 	data.cpy = env;
-	if (append == 1)
-	{
-		append_values(env, arg);
-		return ;
-	}
 	get_value_and_key(&data.key_arg, &data.value_arg, arg);
 	while (data.cpy != NULL)
 	{
@@ -81,7 +80,6 @@ void	update_or_add_to_env(t_list *env, char *arg, int append)
 void	ft_export(t_node *arg, t_list *env)
 {
 	int	i;
-	int	append;
 
 	i = 1;
 	if (arg->args[i] == NULL)
@@ -93,11 +91,8 @@ void	ft_export(t_node *arg, t_list *env)
 	{
 		while (arg->args[i])
 		{
-			append = 0;
-			if (check_append(arg->args[i]) == 1)
-				append = 1;
 			if (check_key(arg->args[i]))
-				update_or_add_to_env(env, arg->args[i], append);
+				update_or_add_to_env(env, arg->args[i]);
 			i++;
 		}
 	}

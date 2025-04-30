@@ -21,8 +21,6 @@ M_SRC = \
 	execution/help_func/get_cpy_of_env.c \
 	execution/help_func/sort_arr.c \
 	execution/help_func/get_value_and_key.c \
-	execution/help_func/append_values.c \
-	execution/help_func/check_append.c \
 	execution/help_func/print_expo.c \
 	execution/help_func/get_clean_key.c \
 	execution/help_func/set_data.c \
