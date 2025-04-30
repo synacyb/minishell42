@@ -6,7 +6,7 @@
 /*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:42:53 by ayadouay          #+#    #+#             */
-/*   Updated: 2025/04/29 15:42:54 by ayadouay         ###   ########.fr       */
+/*   Updated: 2025/04/30 09:09:38 by ayadouay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,23 @@ void	new_var(t_list *env, char *arg)
 	data.cpy_node = ft_lstnew((void *)ft_strdup(arg));
 	ft_lstadd_back(&env, data.cpy_node);
 }
-
+void	check_extra_case(exporta *data, char *arg)
+{
+	int i = 0;
+    while (arg[i])
+    {
+        if (arg[i] == '=')
+            break;
+        i++;
+    }
+	if(arg[i] == '=')
+	{
+		free(data->cpy->content);
+		data->cpy->content = (void *)ft_strdup(arg);
+		free_extra_alocation(data->key_list, data->value_list);
+		free_extra_alocation(data->key_arg, data->value_arg);
+	}
+}
 void	update_or_add_to_env(t_list *env, char *arg, int append)
 {
 	exporta	data;
@@ -52,10 +68,7 @@ void	update_or_add_to_env(t_list *env, char *arg, int append)
 		get_value_and_key(&data.key_list, &data.value_list, data.cpy->content);
 		if (ft_strcmp(data.key_arg, data.key_list) == 0)
 		{
-			free(data.cpy->content);
-			data.cpy->content = (void *)ft_strdup(arg);
-			free_extra_alocation(data.key_list, data.value_list);
-			free_extra_alocation(data.key_arg, data.value_arg);
+			check_extra_case(&data, arg);
 			return ;
 		}
 		free_extra_alocation(data.key_list, data.value_list);

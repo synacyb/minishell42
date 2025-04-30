@@ -27,6 +27,7 @@ void    append_values(t_list *env, char *arg)
     data.cpy = env;
     data.key_arg = get_clean_key(arg);
     data.value_arg = ft_strdup(ft_strchr(arg, '=') + 1);
+    
     while (data.cpy)
     {
         get_value_and_key(&data.key_list, &data.value_list, data.cpy->content);
