@@ -67,11 +67,12 @@ struct e_minishell
 
 t_node *parse_input(char *input);
 void    set_data(t_node *data);
-void    check_cmd(t_node *args, t_list *env);
+void    check_cmd(t_node *args, t_list **env);
 void    ft_echo(t_node   *cmd);
 void    ft_pwd(t_node   *cmd);
+void    remove_variable(t_list **env, t_node *arg);
 void    ft_export(t_node *arg, t_list *env);
-int    check_builtins_cmd(t_node *args, t_list *env);
+int    check_builtins_cmd(t_node *args, t_list **env);
 void    get_value_and_key(char **key, char **value, char  *arg);
 char **get_copy_of_env(t_list *env);
 void sort_array(char **arr);
@@ -83,7 +84,7 @@ int    check_append(char *arg);
 void	print_env(t_list *env);
 char *get_clean_key(char *arg);
 void    append_values(t_list *env, char *arg);
-void    exeuction_cmds(t_node *args, t_list *env);
+void    exeuction_cmds(t_node *args, t_list **env);
 t_token *tokenizer(const char *input);
 void print_tokens(t_token *t);
 bool check_syntax(t_token *tokens);

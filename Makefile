@@ -1,6 +1,6 @@
 # Compiler and Flags
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -I. -I$(LIBFTDIR)
+CFLAGS = -fsanitize=address -g3 -Wall -Wextra -Werror -I. -I$(LIBFTDIR)
 
 # Libft
 LIBFTDIR = ./libft_v1
@@ -17,6 +17,7 @@ M_SRC = \
 	execution/builtins/echo.c \
 	execution/execution.c \
 	execution/builtins/pwd.c \
+	execution/builtins/unset.c \
 	execution/help_func/check_cmd.c \
 	execution/help_func/get_cpy_of_env.c \
 	execution/help_func/sort_arr.c \
