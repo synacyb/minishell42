@@ -33,11 +33,11 @@ t_node *parse_input(char *input)
     char *token = strtok(dup, " ");
     int i = 0;
     while (token) {
-        node->args[i++] = strdup(token);
+        node->args[i++] = ft_strdup(token);
         token = strtok(NULL, " ");
     }
     node->args[i] = NULL;
-    node->cmd = node->args[0]; // first token is the command
+    node->cmd = ft_strdup(node->args[0]); // first token is the command
 
     free(dup);
     return node;

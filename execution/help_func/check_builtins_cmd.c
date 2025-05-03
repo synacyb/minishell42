@@ -15,5 +15,7 @@ int    check_builtins_cmd(t_node *args, t_list **env)
         (ft_export(args, (*env)), check = 1);
     if(ft_strcmp(args->cmd, "unset") == 0)
         (remove_variable(env, args), check = 1);
+    if(ft_strcmp(args->cmd, "exit") == 0)
+        (exit_func(args, env), check = 1);
     return check;
 }

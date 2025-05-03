@@ -57,23 +57,29 @@
 // }
 
 //had dyali  commintyh okml khdmtak !!!
+void    ft_freelist(t_list *lst)
+{
+  	t_list	*cpy;
 
-// void    ft_free(t_node *cmds, t_list **env)
-// {
-//     free(cmds->cmd);
-//     int i = 0;
-//     while (cmds->args[i])
-//         free(cmds->args[i++]);
-//     free(cmds->args);
-
-//     while (env)
-//     {
-//         free(env->content);
-//         env = env->next;
-//     }
-//     free(env);
+	cpy = lst;
+	if (!lst)
+		return ;
+	while ((lst) != NULL)
+	{
+		cpy = cpy->next;
+		free(lst);
+		(lst) = cpy;
+	}
+}
+void print_list(t_list *lst)
+{
+    while (lst)
+    {
+        printf("%s\n", (char *)lst->content);
+        lst = lst->next;
+    }
     
-// }
+}
 int main(int ac, char **av, char **envp) 
 {
     char *input;
@@ -81,6 +87,9 @@ int main(int ac, char **av, char **envp)
     t_list *env = NULL;
 
     env = creat_list_env(envp);
+    // print_list(env);
+    // ft_freelist(env);
+    
     set_data(cmds);
     ((void)ac , (void)av);
     while (1)
@@ -91,8 +100,6 @@ int main(int ac, char **av, char **envp)
         add_history(input);
         cmds = parse_input(input);
         exeuction_cmds(cmds, &env);
-        // ft_free(cmds, env);
-        free(input);
     }
     return 0;
 }

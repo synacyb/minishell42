@@ -6,7 +6,7 @@
 /*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 09:22:24 by ayadouay          #+#    #+#             */
-/*   Updated: 2025/04/22 10:29:25 by ayadouay         ###   ########.fr       */
+/*   Updated: 2025/05/02 09:18:12 by ayadouay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ void	ft_echo(t_node	*cmd)
 
 	i = 1;
 	new_line = 1;
-	if (!cmd || !cmd->args[0])
-	{
-		// ft_free_args();
-		return ;
-	}
 	cheak_new_line(cmd->args, &new_line, &i);
 	while (cmd->args[i])
 	{

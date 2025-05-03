@@ -6,7 +6,7 @@
 /*   By: ayadouay <ayadouay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:31:11 by ayadouay          #+#    #+#             */
-/*   Updated: 2025/04/20 08:11:00 by ayadouay         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:39:54 by ayadouay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char *ft_strjoin_free(char *s1, const char *s2);
+// void    *garbage_collector(size_t size, short option);
 
 typedef struct s_list
 {
