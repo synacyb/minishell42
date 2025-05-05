@@ -6,6 +6,9 @@
  #include <readline/readline.h>
  #include <readline/history.h>
  #include <stdbool.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdio.h>
 
  
  // ----- Colors -----
@@ -75,6 +78,9 @@ void    ft_export(t_node *arg, t_list *env);
 int    check_builtins_cmd(t_node *args, t_list **env);
 void    get_value_and_key(char **key, char **value, char  *arg);
 char **get_copy_of_env(t_list *env);
+char *get_path_variable(t_list *env);
+void     external_cmd(t_node *cmd, t_list *env);
+void    *fond_cmd(char *cmd, char *path);
 void sort_array(char **arr);
 t_list  *creat_list_env(char **env);
 void    ft_env(t_list *env);

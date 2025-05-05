@@ -78,18 +78,15 @@ void print_list(t_list *lst)
         printf("%s\n", (char *)lst->content);
         lst = lst->next;
     }
-    
 }
-int main(int ac, char **av, char **envp) 
+
+int main(int ac, char **av, char **envp)
 {
     char *input;
     t_node *cmds = NULL;
     t_list *env = NULL;
 
     env = creat_list_env(envp);
-    // print_list(env);
-    // ft_freelist(env);
-    
     set_data(cmds);
     ((void)ac , (void)av);
     while (1)
@@ -98,8 +95,11 @@ int main(int ac, char **av, char **envp)
         if (!input)
             break;
         add_history(input);
-        cmds = parse_input(input);
-        exeuction_cmds(cmds, &env);
+        if(input[0] != '\0')
+        {
+            cmds = parse_input(input);
+            exeuction_cmds(cmds, &env);
+        }
     }
     return 0;
 }
