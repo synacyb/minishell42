@@ -26,7 +26,6 @@ void    *fond_cmd(char *cmd, char *path)
         free(tmp);
         if (access(new, X_OK) == 0)
             return(free_exit(arr), new);
-
         free(new);
         i++;
     }
