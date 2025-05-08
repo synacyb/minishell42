@@ -95,4 +95,6 @@ void print_tokens(t_token *t);
 bool check_syntax(t_token *tokens);
 void    expand_tokens(t_token *tokens, char **env, int last_status);
 void free_tokens(t_token *tokens);
+t_node *parse_input1(const char *input, char **env, int last_status);
+
 #endif

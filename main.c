@@ -1,82 +1,59 @@
-
 #include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-// int g_exit_status = 0;
+int g_exit_status = 0; // Required for $?
 
-// int main(int ac, char **av, char **envp)
-// {
-//     char *input;
-//     t_token *tokens;
-//     char **env = envp; // can duplicate if needed
-
-//     (void)ac;
-//     (void)av;
-
-//     while (1)
-//     {
-//         input = readline(COLOR_GREEN "minishell> " COLOR_RESET);
-//         if (!input)
-//             break;
-
-//         if (*input)
-//             add_history(input);
-
-//         tokens = tokenizer(input);
-
-//         if (!tokens)
-//         {
-//             free(input);
-//             continue;
-//         }
-
-//         if (!check_syntax(tokens))
-//         {
-//             printf("Syntax error!\n");
-//             free_tokens(tokens);
-//             free(input);
-//             continue;
-//         }
-
-//         // Expand environment vars and $?
-//         expand_tokens(tokens, env, g_exit_status);
-
-//         // Debug: print final tokens
-//         printf("🔍 Final tokens:\n");
-//         print_tokens(tokens);
-
-//         // Simulate success (or set manually if you test $?)
-//         g_exit_status = 0;
-
-//         free_tokens(tokens);
-//         free(input);
-//     }
-
-//     return 0;
-// }
-
-//had dyali  commintyh okml khdmtak !!!
-void    ft_freelist(t_list *lst)
+// Print the command nodes created by parse_input
+void print_nodes(t_node *node)
 {
-  	t_list	*cpy;
-
-	cpy = lst;
-	if (!lst)
-		return ;
-	while ((lst) != NULL)
-	{
-		cpy = cpy->next;
-		free(lst);
-		(lst) = cpy;
-	}
-}
-void print_list(t_list *lst)
-{
-    while (lst)
+    while (node)
     {
-        printf("%s\n", (char *)lst->content);
-        lst = lst->next;
+        printf("🔹 CMD: %s\n", node->cmd ? node->cmd : "(null)");
+        if (node->args)
+        {
+            printf("   ARGS:");
+            for (int i = 0; node->args[i]; i++)
+                printf(" %s", node->args[i]);
+            printf("\n");
+        }
+        if (node->infile)
+            printf("   IN: %s\n", node->infile);
+        if (node->outfile)
+            printf("   OUT: %s (%s)\n", node->outfile, node->append ? "append" : "truncate");
+        if (node->pipe_in)
+            printf("   ⬅️  Piped In\n");
+        if (node->pipe_out)
+            printf("   ➡️  Piped Out\n");
+
+        printf("-----------\n");
+        node = node->next;
+    }
+}
+
+// Free memory from t_node chain
+void free_nodes(t_node *node)
+{
+    t_node *tmp;
+    while (node)
+    {
+        tmp = node->next;
+        if (node->cmd)
+            free(node->cmd);
+        if (node->infile)
+            free(node->infile);
+        if (node->outfile)
+            free(node->outfile);
+        if (node->args)
+        {
+            for (int i = 0; node->args[i]; i++)
+                free(node->args[i]);
+            free(node->args);
+        }
+        free(node);
+        node = tmp;
     }
 }
 
@@ -84,22 +61,32 @@ int main(int ac, char **av, char **envp)
 {
     char *input;
     t_node *cmds = NULL;
-    t_list *env = NULL;
 
-    env = creat_list_env(envp);
-    set_data(cmds);
-    ((void)ac , (void)av);
+    (void)ac;
+    (void)av;
+
     while (1)
     {
-        input = readline(COLOR_GREEN "minishell> " COLOR_RESET);
+        input = readline("\033[0;32mminishell> \033[0m");
         if (!input)
             break;
-        add_history(input);
-        if(input[0] != '\0')
+        if (*input)
+            add_history(input);
+
+        cmds = parse_input1(input, envp, g_exit_status);
+        if (cmds)
         {
-            cmds = parse_input(input);
-            exeuction_cmds(cmds, &env);
+            printf("\n🧠 Parsed Commands:\n");
+            print_nodes(cmds);
+            free_nodes(cmds);
         }
+        else
+        {
+            printf("❌ Error: Invalid syntax or failed to tokenize\n");
+        }
+
+        free(input);
     }
+
     return 0;
 }

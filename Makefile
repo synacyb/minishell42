@@ -1,6 +1,6 @@
 # Compiler and Flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFTDIR) -fsanitize=address -g3 
+CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFTDIR) 
 
 # Libft
 LIBFTDIR = ./libft_v1
@@ -10,6 +10,7 @@ LIBFTDIR = ./libft_v1
 M_SRC = \
 	main.c \
 	parcing/tokenizer.c \
+	parcing/parse.c \
 	parcing/expand.c \
 	parcing/utils.c \
 	parcing/syntax.c \

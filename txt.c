@@ -1,0 +1,9 @@
+execution
+libft_v1
+main.c
+main.o
+Makefile
+minishell
+minishell.h
+parcing
+txt.c
