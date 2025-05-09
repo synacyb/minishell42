@@ -4,7 +4,8 @@ void     external_cmd(t_node *cmd, t_list *env)
 {
     char *path = get_path_variable(env);
     char *valid_path = NULL;
-
+    char **env_arr;
+    env_arr = get_copy_of_env(env);
     if (path == NULL)
     {
         printf("No such file or directory\n");
@@ -26,7 +27,7 @@ void     external_cmd(t_node *cmd, t_list *env)
     }
     else if(pid == 0)
     {
-        execv(valid_path, cmd->args);
+        execve(valid_path, cmd->args, env_arr);
         perror("execv failed");
         exit(127);
     }
